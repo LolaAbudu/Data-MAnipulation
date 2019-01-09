@@ -83,56 +83,33 @@ public class MainActivity extends AppCompatActivity {
                 "  ]\n" +
                 "}";
 
-       // Log.d("Testing out JSON size", "onCreate" + JSONString.length());
-
         List<Color> colorList = new ArrayList<>();
         try{
             JSONObject toParseObject = new JSONObject(JSONString);
             JSONArray toParseArray = toParseObject.getJSONArray("colors");
 
-            Log.d("JSON Object", "onCreate" + toParseArray.getJSONObject(5));
+            Log.d("JSON Object", "onCreate" + toParseArray.getJSONObject(4));
             for(int i = 0; i < toParseArray.length(); i++){
                 Color color = new Color();
                 color.setColor((String)toParseArray.getJSONObject(i).get("color"));
                 color.setCategory((String)toParseArray.getJSONObject(i).get("category"));
                 color.setType((String)toParseArray.getJSONObject(i).get("type"));
 
-
                 JSONObject codeObject = toParseArray.getJSONObject(i).getJSONObject("code");
+
                 CodeRgbaHex codeRgbaHex = new CodeRgbaHex();
                 codeRgbaHex.setHex(codeObject.getString("hex"));
-                //Log.d("hex color", "onCreate" + codeRgbaHex.getHex());
-                //Log.d("rgba color", "onCreate" + codeRgbaHex.getRgba());
-                //Log.d("color category ", "onCreate" + color.getCategory());
-                //Log.d("color type", "onCreate" + color.getType());
-
                 codeRgbaHex.setRgba(new int[4]);
 
                 JSONArray rgbaArray = codeObject.getJSONArray("rgba");
-
                 for (int j = 0; j < rgbaArray.length(); j++) {
-
                     int [] thisArray = codeRgbaHex.getRgba();
                     thisArray[j] = rgbaArray.getInt(j);
-
-//                    rgbaArray.getInt(j);
-//                    codeRgbaHex.setRgba(thisArray);
-                    // Log.d("rgba color after", "onCreate" + codeRgbaHex.getRgba());
-                    //Log.d("rgba color length", "onCreate" + codeRgbaHex.getRgba().length);
                 }
-
-                Log.d("rgba color after2", "onCreate" + codeRgbaHex.getRgba());
                 color.setCode(codeRgbaHex);
                 colorList.add(color);
-
-                //Log.d("rgba color after", "onCreate" + codeRgbaHex.getRgba());
-                //Log.d("Testing out color", "onCreate" + colorList.size());
             }
-//            Log.d("hex color 2", "onCreate" + colorList.get(1));
-//            Log.d("color category 2", "onCreate" + colorList.get(2));
-//            Log.d("color type 2", "onCreate" + colorList.get(0));
-//
-//            Log.d("Testing out color2", "onCreate" + colorList.size());
+
         }catch(JSONException e){
             e.printStackTrace();
         }
@@ -143,7 +120,5 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         colorRecyclerView.setAdapter(colorAdapter);
         colorRecyclerView.setLayoutManager(linearLayoutManager);
-
-        //Log.d("Testing colorAdapter", "onCreate" + colorAdapter.toString());
     }
 }

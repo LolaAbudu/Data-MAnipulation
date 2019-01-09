@@ -1,5 +1,7 @@
 package com.example.lolaabudu.datamanipulation;
 
+import java.util.Arrays;
+
 class CodeRgbaHex {
 
     private int[] rgba;
@@ -21,5 +23,9 @@ class CodeRgbaHex {
         this.hex=hex;
     }
 
-
+    //override toString method and make it return what you want; this allows the code: hex and rgba to show up in the Textview
+    @Override
+    public String toString() {
+        return hex+" \n" + Arrays.toString(rgba);
+    }
 }
